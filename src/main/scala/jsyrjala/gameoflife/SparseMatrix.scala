@@ -117,7 +117,7 @@ class SparseMatrix(val generation: Int, val data: Map[Int, Set[Int]]) {
 
   def generateNext: SparseMatrix = {
     var unprocessedNeighbours = Set[Location]()
-    val result = data.flatMap {rowEntry =>
+    var result = data.flatMap {rowEntry =>
       val x = rowEntry._1
       val aliveCells = rowEntry._2.filter{y =>
         val loc = Location(x, y)
@@ -136,6 +136,14 @@ class SparseMatrix(val generation: Int, val data: Map[Int, Set[Int]]) {
       // remove empty Sets
       // otherwise result would contain values like 1 -> Set()
       !(x._2.isEmpty)
+    })
+
+    unprocessedNeighbours.foreach( loc => {
+      if(aliveNeighbours(loc).size == 3) {
+        // XXX
+        val ySet = result.get(loc.x).getOrElse(Set())
+        result += loc.x -> (ySet + loc.y)
+      }
     })
 
     return new SparseMatrix(result)
