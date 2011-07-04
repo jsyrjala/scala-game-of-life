@@ -1,116 +1,16 @@
 package jsyrjala.gameoflife
 
-import java.security.acl.Owner
 
 /**
  * http://en.wikipedia.org/wiki/Conway's_Game_of_Life
+ *
+ * Sparse matrix uses immutable maps and sets to store GoL world in sparse matrix presentation
+ * Only alive cells are stored.
+ *
+ * Map( 0 -> Set(0,1,3), 1 -> Set(2)) means that coordinates
+ * (0,0), (0,1), (0,3) and (1,2) are alive
+ *
  */
-object SparseMatrix{
-  // TODO move these to spec
-
-  def empty(generation: Int) = {
-    new SparseMatrix(generation, Map())
-  }
-
-  def singleCell(generation: Int) = {
-    /*
-      1
-    1 x
-     */
-    new SparseMatrix(generation, Map(1 -> Set(1)))
-  }
-
-  def twoCell(generation: Int) = {
-    /*
-      1 2
-    1 x
-    2 x
-     */
-    new SparseMatrix(generation, Map(1 -> Set(1), 2 -> Set(2)))
-  }
-  def blinker(generation: Int) = {
-    /*
-      1 2 3
-    1
-    2 x x x
-    3
-     */
-    new SparseMatrix(generation, Map(2 -> Set(1,2,3)))
-  }
-    def blinker2(generation: Int) = {
-    /*
-      1 2 3
-    1   x
-    2   x
-    3   x
-     */
-    new SparseMatrix(generation, Map(2 -> Set(1,2,3)))
-  }
-  def block(generation: Int) = {
-    /*
-       1 2 3
-     1 x x
-     2 x x
-     3
-      */
-    new SparseMatrix(generation, Map(1 -> Set(1,2), 2 -> Set(1,2)))
-  }
-
-  def glider1(generation: Int) = {
-    /*
-       1 2 3
-     1     x
-     2 x   x
-     3   x x
-      */
-    new SparseMatrix(generation, Map(1 -> Set(3), 2 -> Set(1,3), 3 -> Set(2,3)))
-  }
-
-  def glider2(generation: Int) = {
-    /*
-       1 2 3 4
-     1     x
-     2     x
-     3   x x
-     4
-      */
-    new SparseMatrix(generation, Map(1 -> Set(3), 2 -> Set(1,3), 3 -> Set(2,3)))
-  }
-
-  def glider3(generation: Int) = {
-    /*
-       1 2 3 4
-     1     x
-     2 x   x
-     3   x x
-     4
-      */
-    new SparseMatrix(generation, Map(1 -> Set(3), 2 -> Set(1,3), 3 -> Set(2,3)))
-  }
-
-  def beacon(generation: Int) = {
-   /*
-      1 2 3 4
-    1 x x
-    2 x x
-    3     x x
-    4     x x
-     */
-    new SparseMatrix(generation, Map(1 -> Set(1,2), 2 -> Set(1,2), 3 -> Set(3,4), 4 -> Set(3,4)))
-  }
-
-  def beacon2(generation: Int) = {
-   /*
-      1 2 3 4
-    1 x x
-    2 x
-    3       x
-    4     x x
-     */
-    new SparseMatrix(generation, Map(1 -> Set(1,2), 2 -> Set(1), 3 -> Set(4), 4 -> Set(3,4)))
-  }
-}
-
 class SparseMatrix(val generation: Int, val data: Map[Int, Set[Int]]) extends World {
 
   def this(d: Map[Int, Set[Int]]) = this(1, d)
@@ -123,7 +23,6 @@ class SparseMatrix(val generation: Int, val data: Map[Int, Set[Int]]) extends Wo
         val loc = Location(x, y)
         // store dead neighbours for later processing
         unprocessedNeighbours ++= deadNeighbours(loc)
-
         staysAliveAtNextGeneration(loc)
       }
       Map(x -> aliveCells)
@@ -133,17 +32,16 @@ class SparseMatrix(val generation: Int, val data: Map[Int, Set[Int]]) extends Wo
       !(rowEntry._2.isEmpty)
     })
 
-
+    // loop over dead neighbours of current alive cells
     unprocessedNeighbours.foreach( loc => {
       if(becomesAliveAtNextGeneration(loc)) {
-
         val ySet = result.get(loc.x).getOrElse(Set())
         result += loc.x -> (ySet + loc.y)
       }
     })
-
-    return new SparseMatrix(generation + 1, result)
+    new SparseMatrix(generation + 1, result)
   }
+
   def isAlive(loc: Location): Boolean = {
     data.get(loc.x).getOrElse(Set()).contains(loc.y)
   }
@@ -166,12 +64,12 @@ class SparseMatrix(val generation: Int, val data: Map[Int, Set[Int]]) extends Wo
 
   override def equals(obj: Any):Boolean = {
     obj match {
-      case other: SparseMatrix => other.data == this.data && other.generation == this.generation
+      case other: SparseMatrix => other.data == this.data
       case _ => false
     }
   }
 
   override def toString: String = {
-    this.getClass.getSimpleName + ":gen" + generation + ":" + data
+    this.getClass.getSimpleName + ":gen:" + generation + ":" + data
   }
 }
