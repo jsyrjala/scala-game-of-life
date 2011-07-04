@@ -1,5 +1,8 @@
 package jsyrjala.gameoflife
 
+import collection.parallel.immutable.ParSet
+import collection.{GenSet, GenMap}
+
 
 /**
  * http://en.wikipedia.org/wiki/Conway's_Game_of_Life
@@ -11,9 +14,9 @@ package jsyrjala.gameoflife
  * (0,0), (0,1), (0,3) and (1,2) are alive
  *
  */
-class SparseMatrix(val generation: Int, val data: Map[Int, Set[Int]]) extends World {
+class SparseMatrix(val generation: Int, val data: GenMap[Int, GenSet[Int]]) extends World {
 
-  def this(d: Map[Int, Set[Int]]) = this(1, d)
+  def this(d: GenMap[Int, GenSet[Int]]) = this(1, d)
 
   def generateNext: SparseMatrix = {
     var unprocessedNeighbours = Set[Location]()
@@ -54,13 +57,7 @@ class SparseMatrix(val generation: Int, val data: Map[Int, Set[Int]]) extends Wo
   def deadNeighbours(loc: Location): Set[Location] = {
     this.neighbourLocations(loc).filter(l => !isAlive(l))
   }
-  private def neighbourLocations(loc: Location) = {
-    val offsets = Set(-1, 0, 1)
-    for {dx <- offsets
-      dy <- offsets
-      if (dx, dy) != (0, 0)}
-      yield Location(loc.x + dx, loc.y + dy)
-  }
+
 
   override def equals(obj: Any):Boolean = {
     obj match {

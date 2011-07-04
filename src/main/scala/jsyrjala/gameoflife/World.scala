@@ -1,7 +1,8 @@
 package jsyrjala.gameoflife
 
 /**
- * TODO
+ * Rules for Game of Life and intefrace that GoL implementations must use.
+ *
  */
 trait World {
   def isAlive(loc: Location): Boolean
@@ -16,6 +17,13 @@ trait World {
   }
   def becomesAliveAtNextGeneration(loc: Location) = {
     aliveNeighbours(loc).size == 3
+  }
+  def neighbourLocations(loc: Location) = {
+    val offsets = Set(-1, 0, 1)
+    for {dx <- offsets
+      dy <- offsets
+      if (dx, dy) != (0, 0)}
+      yield Location(loc.x + dx, loc.y + dy)
   }
 }
 
