@@ -8,6 +8,7 @@ trait World {
   def isAlive(loc: Location): Boolean
   def aliveNeighbours(loc: Location): Set[Location]
   def deadNeighbours(loc: Location): Set[Location]
+  def population: Int
   def staysAliveAtNextGeneration(loc: Location) = {
     aliveNeighbours(loc).size match {
       case 2 => true

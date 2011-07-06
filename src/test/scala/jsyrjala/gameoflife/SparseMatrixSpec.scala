@@ -158,6 +158,12 @@ class SparseMatrixSpec extends SpecificationWithJUnit {
       SparseMatrixSpec.r_pentamino.generateNext must_== SparseMatrixSpec.r_pentamino2
     }
   }
+  "r_pentamino.population" should {
+    "be 5" in {
+      SparseMatrixSpec.r_pentamino.population must_== 5
+    }
+  }
+
 
   "beacon.generateNext" should {
     "return beacon2" in {
@@ -188,10 +194,20 @@ class SparseMatrixSpec extends SpecificationWithJUnit {
       SparseMatrixSpec.block.generateNext must_== SparseMatrixSpec.block
     }
   }
+  "block.population" should {
+    "be 4" in {
+      SparseMatrixSpec.block.population must_== 4
+    }
+  }
 
   "empty.generateNext" should {
     "return empty" in {
       SparseMatrixSpec.empty.generateNext must_== SparseMatrixSpec.empty
+    }
+  }
+  "empty.population" should {
+    "be 0" in {
+      SparseMatrixSpec.empty.population must_== 0
     }
   }
 
@@ -200,10 +216,21 @@ class SparseMatrixSpec extends SpecificationWithJUnit {
       SparseMatrixSpec.singleCell.generateNext must_== SparseMatrixSpec.empty
     }
   }
+  "singleCell.population" should {
+      "be 1" in {
+        SparseMatrixSpec.singleCell.population must_== 1
+      }
+    }
 
   "twoCell.generateNext" should {
     "return empty" in {
       SparseMatrixSpec.twoCell.generateNext must_== SparseMatrixSpec.empty
+    }
+  }
+
+  "twoCell.population" should {
+    "be 2" in {
+      SparseMatrixSpec.twoCell.population must_== 2
     }
   }
 

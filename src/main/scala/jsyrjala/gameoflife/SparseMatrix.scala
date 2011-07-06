@@ -2,6 +2,7 @@ package jsyrjala.gameoflife
 
 import collection.parallel.immutable.ParSet
 import collection.{GenSet, GenMap}
+import javax.print.attribute.standard.MediaSize.Other
 
 
 /**
@@ -57,7 +58,9 @@ class SparseMatrix(val generation: Int, val data: GenMap[Int, GenSet[Int]]) exte
   def deadNeighbours(loc: Location): Set[Location] = {
     this.neighbourLocations(loc).filter(l => !isAlive(l))
   }
-
+  override def population: Int = {
+    data.map( entry => entry._2.size).reduce(_ + _)
+  }
 
   override def equals(obj: Any):Boolean = {
     obj match {
