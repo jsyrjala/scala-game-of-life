@@ -59,7 +59,7 @@ class SparseMatrix(val generation: Int, val data: GenMap[Int, GenSet[Int]]) exte
     this.neighbourLocations(loc).filter(l => !isAlive(l))
   }
   override def population: Int = {
-    data.map( entry => entry._2.size).reduce(_ + _)
+    data.map( entry => entry._2.size).foldLeft(0)(_ + _)
   }
 
   override def equals(obj: Any):Boolean = {
