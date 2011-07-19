@@ -45,6 +45,10 @@ object Ui extends SimpleSwingApplication {
     }
     contents = mainPanel
 
+    override def closeOperation() {
+      // let SimpleSwingApplication handle quit
+      quit()
+    }
   }
 
   private def loadIconImage = {
