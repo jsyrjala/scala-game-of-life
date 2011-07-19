@@ -1,10 +1,13 @@
 package jsyrjala.gameoflife.swingui
 
 import swing._
+import java.awt.Toolkit
 
 object Ui extends SimpleSwingApplication {
   def top = new MainFrame {
     title = "Game of Life"
+
+    iconImage = loadIconImage
 
     val runButton = new Button() {
       action = Action("Run") {
@@ -42,6 +45,10 @@ object Ui extends SimpleSwingApplication {
     }
     contents = mainPanel
 
+  }
+
+  private def loadIconImage = {
+    Toolkit.getDefaultToolkit().getImage(this.getClass.getResource("/glider.png"))
   }
 
   override def shutdown() {
