@@ -1,4 +1,4 @@
-package jsyrjala.gameoflife
+package jsyrjala.gameoflife.engine
 
 /**
  * Rules for Game of Life and intefrace that GoL implementations must use.

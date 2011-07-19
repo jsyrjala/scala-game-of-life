@@ -1,4 +1,4 @@
-package jsyrjala.gameoflife
+package jsyrjala.gameoflife.engine
 
 import org.specs2.mutable._
 

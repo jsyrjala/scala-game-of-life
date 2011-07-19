@@ -1,4 +1,4 @@
-package jsyrjala.gameoflife
+package jsyrjala.gameoflife.engine
 
 import collection.parallel.immutable.ParSet
 import collection.{GenSet, GenMap}
