@@ -8,7 +8,7 @@ object Ui extends SimpleSwingApplication {
 
     val runButton = new Button() {
       action = Action("Run") {
-        println("Running as fast as possible " )
+        println("Running as fast as possible ")
       }
     }
     val pauseButton = new Button() {
@@ -33,7 +33,7 @@ object Ui extends SimpleSwingApplication {
 
     val statusPanel = new FlowPanel(populationCount, generationCount, filename)
     val buttonPanel = new FlowPanel(runButton, pauseButton, stepButton, resetButton)
-    val canvas = new CellCanvas
+    val canvas = new CellCanvas(10, new Dimension(200, 200))
 
     val mainPanel = new BorderPanel {
       add(buttonPanel, BorderPanel.Position.North)
@@ -43,6 +43,7 @@ object Ui extends SimpleSwingApplication {
     contents = mainPanel
 
   }
+
   override def shutdown() {
     println("Bye!")
   }
