@@ -2,6 +2,8 @@ package jsyrjala.gameoflife.swingui
 
 import swing._
 import java.awt.Toolkit
+import scala.swing.FileChooser.Result._
+import java.awt.font.OpenType
 
 object Ui extends SimpleSwingApplication {
   def top = new MainFrame {
@@ -9,26 +11,35 @@ object Ui extends SimpleSwingApplication {
 
     iconImage = loadIconImage
 
-    val runButton = new Button() {
-      action = Action("Run") {
+    menuBar = new MenuBar{
+      contents += new Menu("File") {
+        contents += new MenuItem(Action("Open") {
+            val chooser = new FileChooser
+            chooser.showOpenDialog(this) match {
+              case Cancel => println("Cancel Open file")
+              case Error => println("Error while Open file")
+              case Approve => println("Opening file " + chooser.selectedFile.getPath)
+            }
+          })
+        contents += new Separator
+        contents += new MenuItem(Action("Exit") {
+            quit()
+          })
+      }
+    }
+
+    val runButton = new Button(Action("Run") {
         println("Running as fast as possible ")
-      }
-    }
-    val pauseButton = new Button() {
-      action = Action("Pause") {
+      })
+    val pauseButton = new Button(Action("Pause") {
         println("Having a small break")
-      }
-    }
-    val stepButton = new Button() {
-      action = Action("Step") {
+      })
+    val stepButton = new Button(Action("Step") {
         println("Taking one step at time")
-      }
-    }
-    val resetButton = new Button() {
-      action = Action("Reset") {
+      })
+    val resetButton = new Button(Action("Reset") {
         println("Resetting to the starting position")
-      }
-    }
+      })
 
     val populationCount = new Label("Population: 10")
     val generationCount = new Label("Generation: 77")
@@ -52,7 +63,7 @@ object Ui extends SimpleSwingApplication {
   }
 
   private def loadIconImage = {
-    Toolkit.getDefaultToolkit().getImage(this.getClass.getResource("/glider.png"))
+    Toolkit.getDefaultToolkit.getImage(this.getClass.getResource("/glider.png"))
   }
 
   override def shutdown() {
