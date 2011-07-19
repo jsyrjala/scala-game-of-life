@@ -40,7 +40,7 @@
 
     <modules>
         <module>engine</module>
-
+        <module>swing-ui</module>
     </modules>
     <dependencies>
         <dependency>
@@ -70,9 +70,11 @@
         <dependencies>
         </dependencies>
     </dependencyManagement>
+
+
     <build>
-        <sourceDirectory>engine/src/main/scala</sourceDirectory>
-        <testSourceDirectory>engine/src/test/scala</testSourceDirectory>
+        <sourceDirectory>${project.basedir}/src/main/scala</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/scala</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.scala-tools</groupId>
