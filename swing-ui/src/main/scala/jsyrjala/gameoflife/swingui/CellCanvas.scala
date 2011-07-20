@@ -2,7 +2,7 @@ package jsyrjala.gameoflife.swingui
 
 import swing._
 import java.awt.{geom, Graphics2D, Dimension, Color}
-import jsyrjala.gameoflife.engine.{Location, World}
+import jsyrjala.gameoflife.engine.Location
 
 class CellCanvas(cellSizePixels: Int, prefSize: Dimension) extends Panel {
 
@@ -22,7 +22,8 @@ class CellCanvas(cellSizePixels: Int, prefSize: Dimension) extends Panel {
     g.draw(path)
 
   }
-  private def drawCell(loc : Location) {
+
+  private def drawCell(loc: Location) {
 
   }
 }
