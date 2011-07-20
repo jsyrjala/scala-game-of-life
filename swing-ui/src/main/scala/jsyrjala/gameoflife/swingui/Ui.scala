@@ -3,7 +3,16 @@ package jsyrjala.gameoflife.swingui
 import swing._
 import java.awt.Toolkit
 import scala.swing.FileChooser.Result._
+
 object Ui extends SimpleSwingApplication {
+
+  override def startup(args: Array[String]) {
+    println("Starting. Args: " + args)
+
+    // call to super.startup() constructs ui and makes it visible
+    super.startup(args)
+  }
+
   def top = new MainFrame {
     title = "Game of Life"
 
