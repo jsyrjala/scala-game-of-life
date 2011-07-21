@@ -6,8 +6,15 @@ import scala.swing.FileChooser.Result._
 import java.io.File
 import jsyrjala.gameoflife.engine.{SparseMatrix, World}
 import io.Source
+import javax.swing.ImageIcon
 
 object Ui extends SimpleSwingApplication {
+  val gliderIconName = "/glider.png"
+  val pauseIconName = "/pause.png"
+  val stepIconName = "/step.png"
+  val runIconName = "/run.png"
+  val resetIconName = "/reset.png"
+
   val populationCount = new Label("Population: 0")
   val generationCount = new Label("Generation: 0")
   val filename = new Label("File: -")
@@ -49,7 +56,7 @@ object Ui extends SimpleSwingApplication {
   def top = new MainFrame {
     title = "Game of Life"
 
-    iconImage = loadIconImage
+    iconImage = loadImage(gliderIconName)
 
 
     menuBar = new MenuBar {
@@ -69,18 +76,30 @@ object Ui extends SimpleSwingApplication {
       }
     }
 
-    val runButton = new Button(Action("Run") {
-      println("Running as fast as possible ")
-    })
-    val pauseButton = new Button(Action("Pause") {
-      println("Having a small break")
-    })
-    val stepButton = new Button(Action("Step") {
-      println("Taking one step at time")
-    })
-    val resetButton = new Button(Action("Reset") {
-      println("Resetting to the starting position")
-    })
+    val runButton = new Button() {
+      action = Action("Run") {
+        println("Running as fast as possible ")
+      }
+      icon = loadIcon(runIconName)
+    }
+    val pauseButton = new Button() {
+      action = Action("Pause") {
+        println("Having a small break")
+      }
+      icon = loadIcon(pauseIconName)
+    }
+    val stepButton = new Button() {
+      action = Action("Step") {
+        println("Taking one step at time")
+      }
+      icon = loadIcon(stepIconName)
+    }
+    val resetButton = new Button() {
+      action = Action("Reset") {
+        println("Resetting to the starting position")
+      }
+      icon = loadIcon(resetIconName)
+    }
 
 
     val statusPanel = new FlowPanel(populationCount, generationCount, filename)
@@ -100,8 +119,12 @@ object Ui extends SimpleSwingApplication {
     }
   }
 
-  private def loadIconImage = {
-    Toolkit.getDefaultToolkit.getImage(this.getClass.getResource("/glider.png"))
+  private def loadImage(filename: String) = {
+    Toolkit.getDefaultToolkit.getImage(this.getClass.getResource(filename))
+  }
+
+  private def loadIcon(filename: String) = {
+    new ImageIcon(loadImage(filename))
   }
 
   override def shutdown() {
