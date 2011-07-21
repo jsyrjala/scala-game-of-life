@@ -8,7 +8,12 @@ import jsyrjala.gameoflife.engine.{SparseMatrix, World}
 import io.Source
 
 object Ui extends SimpleSwingApplication {
-  var world: World = new SparseMatrix(Map())
+  val populationCount = new Label("Population: 0")
+  val generationCount = new Label("Generation: 0")
+  val filename = new Label("File: -")
+  var world: World = _
+
+  updateWorld(new SparseMatrix(Map()), None)
 
   override def startup(args: Array[String]) {
     println("Starting.")
@@ -21,22 +26,31 @@ object Ui extends SimpleSwingApplication {
     super.startup(args)
   }
 
+  def updateWorld(world: World, file: Option[File]) {
+    populationCount.text = "Population: %s".format(world.population)
+    generationCount.text = "Generation: %s".format(world.generation)
+    file match {
+      case None => filename.visible = false
+      case Some(f) => filename.text = "File: %s".format(f.getName); filename.visible = true
+    }
+    this.world = world
+  }
 
   def loadFile(file: File) {
     if (!file.exists() || !file.canRead) {
       println("Unable to load file " + file.getPath)
       return
     }
-    println("Opening file " + file.getPath)
+    println("Reading file " + file.getPath)
     val data: SparseMatrix = Source.fromFile(file).getLines().mkString("\n")
-    println("Read data has population " + data.population)
-    world = data
+    updateWorld(data, Some(file))
   }
 
   def top = new MainFrame {
     title = "Game of Life"
 
     iconImage = loadIconImage
+
 
     menuBar = new MenuBar {
       contents += new Menu("File") {
@@ -45,7 +59,7 @@ object Ui extends SimpleSwingApplication {
           chooser.showOpenDialog(this) match {
             case Cancel => println("Cancel Open file")
             case Error => println("Error while Open file")
-            case Approve => loadFile(chooser.selectedFile)
+            case Approve => loadFile(chooser.selectedFile); updateWorld(world, Some(chooser.selectedFile))
           }
         })
         contents += new Separator
@@ -68,9 +82,6 @@ object Ui extends SimpleSwingApplication {
       println("Resetting to the starting position")
     })
 
-    val populationCount = new Label("Population: 10")
-    val generationCount = new Label("Generation: 77")
-    val filename = new Label("File: foobar.txt")
 
     val statusPanel = new FlowPanel(populationCount, generationCount, filename)
     val buttonPanel = new FlowPanel(runButton, pauseButton, stepButton, resetButton)

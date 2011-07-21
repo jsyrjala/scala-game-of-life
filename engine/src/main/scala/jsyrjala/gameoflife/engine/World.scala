@@ -15,6 +15,8 @@ trait World {
 
   def population: Int
 
+  def generation: Int
+
   def staysAliveAtNextGeneration(loc: Location) = {
     aliveNeighbours(loc).size match {
       case 2 => true
