@@ -74,7 +74,7 @@ object Ui extends SimpleSwingApplication {
 
     val statusPanel = new FlowPanel(populationCount, generationCount, filename)
     val buttonPanel = new FlowPanel(runButton, pauseButton, stepButton, resetButton)
-    val canvas = new CellCanvas(10, new Dimension(200, 200))
+    val canvas = new CellCanvas(10, new Dimension(200, 200), world)
 
     val mainPanel = new BorderPanel {
       add(buttonPanel, BorderPanel.Position.North)

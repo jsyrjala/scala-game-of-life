@@ -1,8 +1,8 @@
 package jsyrjala.gameoflife.engine
 
-import collection.{GenSet, GenMap}
 import org.apache.commons.lang.StringUtils
 import io.Source
+import collection.{GenSet, GenMap}
 
 object SparseMatrix {
   implicit def string2matrix(s: String): SparseMatrix = {
@@ -83,6 +83,10 @@ class SparseMatrix(val generation: Int, val data: GenMap[Int, GenSet[Int]]) exte
 
   def deadNeighbours(loc: Location): Set[Location] = {
     this.neighbourLocations(loc).filter(l => !isAlive(l))
+  }
+
+  def aliveLocations: Iterable[Location] = {
+    (for ((y, xSet) <- data; x <- xSet) yield Location(x, y)).seq
   }
 
   override def population: Int = {
