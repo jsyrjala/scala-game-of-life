@@ -32,7 +32,7 @@ IntelliJ IDEA 10.5 Community Edition works nicely
 
 1. Download and install IDEA from http://www.jetbrains.com/idea/download/download_thanks.jsp
 2. Install Scala plugin : _File -> Settings -> Plugins_
-3.
+3. Right click file `src/man/scala/jsyrjala/gameoflife/swingui/Ui` and select `Compile` and `Run Ui.main()`
 
 ### Eclipse
 
