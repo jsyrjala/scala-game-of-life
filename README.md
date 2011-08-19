@@ -5,8 +5,8 @@ http://en.wikipedia.org/wiki/Conway's_Game_of_Life
 ## Required software
 
 - Maven 3.x http://maven.apache.org/
-- git
 - Some IDE, see below
+- git http://git-scm.com/ _(optional)_
 
 ## Source
 
