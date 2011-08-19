@@ -15,15 +15,20 @@ Source is stored in GitHub: https://github.com/jsyrjala/scala-game-of-life
 ## Building software
 
 1. Download source tarball: https://github.com/jsyrjala/scala-game-of-life/tarball/master
+
 ```
     $ wget https://github.com/jsyrjala/scala-game-of-life/tarball/master
     $ tar -zxf master
 ```
+
 2. Or make a git clone
+
 ```
     $ git clone git://github.com/jsyrjala/scala-game-of-life.git
 ```
+
 3. Build software:
+
 ```
     $ cd scala-game-of-life
     $ mvn clean install
