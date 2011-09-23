@@ -1,0 +1,6 @@
+# lines that start with # are comments and are ignored
+# * is a live cell, newline starts a new row, everything else is a dead cell
+**...********...***:
+# this line is comment and is completely ignored
+.**
+.*
