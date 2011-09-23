@@ -16,7 +16,7 @@ case class Step(steps: Int) extends Command
 
 case class Reset(world: World) extends Command
 
-class GameOfLifeEngine(initialWorld: World, visuzalizer: Actor) extends Actor {
+class GameOfLifeEngine(initialWorld: World, visualizer: Actor) extends Actor {
   lazy val logger = LoggerFactory.getLogger(this.getClass)
 
   private var currentWorld: World = initialWorld
@@ -37,7 +37,7 @@ class GameOfLifeEngine(initialWorld: World, visuzalizer: Actor) extends Actor {
         running = false
         currentWorld = currentWorld.generateNext
 
-        visuzalizer ! currentWorld
+        visualizer ! currentWorld
       case Reset(world: World) =>
         logger.info("Reset to world " + world)
         running = false
