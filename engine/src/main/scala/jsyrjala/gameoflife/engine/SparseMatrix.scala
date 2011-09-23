@@ -1,6 +1,6 @@
 package jsyrjala.gameoflife.engine
 
-import org.apache.commons.lang.StringUtils
+import org.apache.commons.lang3.StringUtils
 import io.Source
 import collection.{GenSet, GenMap}
 
