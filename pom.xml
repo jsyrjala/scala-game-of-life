@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>jsyrjala.game-of-life</groupId>
@@ -6,6 +7,20 @@
     <version>1.0-SNAPSHOT</version>
     <inceptionYear>2011</inceptionYear>
     <packaging>pom</packaging>
+    <description>Scala implementation of Game of Life.</description>
+    <issueManagement>
+        <url>https://github.com/jsyrjala/scala-game-of-life/issues</url>
+    </issueManagement>
+    <scm>
+        <connection>scm:git:git://github.com/jsyrjala/scala-game-of-life.git</connection>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Juha Syrjälä</name>
+        </developer>
+    </developers>
+
     <properties>
         <scala.version>2.9.1</scala.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
