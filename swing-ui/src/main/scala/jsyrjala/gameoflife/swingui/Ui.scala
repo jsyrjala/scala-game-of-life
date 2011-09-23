@@ -11,8 +11,11 @@ import java.io.File
 import io.Source
 import javax.swing.ImageIcon
 import jsyrjala.gameoflife.engine._
+import org.slf4j.LoggerFactory
+
 
 object Ui extends SimpleSwingApplication {
+  lazy val logger = LoggerFactory.getLogger(this.getClass)
   val gliderIconName = "/glider.png"
   val pauseIconName = "/pause.png"
   val stepIconName = "/step.png"
@@ -34,7 +37,7 @@ object Ui extends SimpleSwingApplication {
   private val engine = new GameOfLifeEngine(world, updater)
 
   override def startup(args: Array[String]) {
-    println("Starting.")
+    logger.info("Starting.")
 
     if (args.length > 0) {
       val file = new File(args(0))
@@ -61,10 +64,10 @@ object Ui extends SimpleSwingApplication {
 
   def loadFile(file: File) {
     if (!file.exists() || !file.canRead) {
-      println("Unable to load file " + file.getPath)
+      logger.warn("Unable to load file " + file.getPath)
       return
     }
-    println("Reading file " + file.getPath)
+    logger.info("Reading file " + file.getPath)
     val data: SparseMatrix = Source.fromFile(file).getLines().mkString("\n")
     updateWorld(data, Some(file))
   }
@@ -73,7 +76,6 @@ object Ui extends SimpleSwingApplication {
     title = "Game of Life"
 
     iconImage = loadImage(gliderIconName)
-
 
     menuBar = new MenuBar {
       contents += new Menu("File") {
@@ -145,7 +147,7 @@ object Ui extends SimpleSwingApplication {
   }
 
   override def shutdown() {
-    println("Bye!")
+    logger.info("Bye!")
   }
 
 }

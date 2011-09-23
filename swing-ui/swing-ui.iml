@@ -24,11 +24,14 @@
     <orderEntry type="module" module-name="game-of-life" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.9.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.specs2:specs2_2.9.1:1.6.1" level="project" />
-    <orderEntry type="library" name="Maven: org.specs2:specs2-scalaz-core_2.9.1:6.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.2" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:0.9.30" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:0.9.30" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-swing:2.9.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.specs2:specs2_2.9.1:1.6.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.specs2:specs2-scalaz-core_2.9.1:6.0.1" level="project" />
   </component>
 </module>
 
