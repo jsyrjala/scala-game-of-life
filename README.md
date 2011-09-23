@@ -38,12 +38,26 @@ Source is stored in GitHub: https://github.com/jsyrjala/scala-game-of-life
 
 ### IntelliJ IDEA
 
-IntelliJ IDEA 10.5 Community Edition works nicely
+IntelliJ IDEA 10.5 Community Edition is recommended.
 
 1. Download and install IDEA from http://www.jetbrains.com/idea/download/download_thanks.jsp
 2. Install Scala plugin : _File -> Settings -> Plugins_
-3. Right click file `src/man/scala/jsyrjala/gameoflife/swingui/Ui` and select `Compile` and `Run Ui.main()`
+3. Create project from checkout files
+4. Right click file `src/man/scala/jsyrjala/gameoflife/swingui/Ui` and select `Compile` and `Run Ui.main()`
+
 
 ### Eclipse
 
-TODO instructions
+Maybe it works, maybe not.
+
+Version, either Eclipse 3.6 Helios, or Eclipse 3.7 Indigo
+
+Install Scala plugin for Eclipse: http://www.scala-ide.org/
+
+Generate Eclipse project files and configure maven repository to Eclipse
+```
+mvn eclipse:eclipse
+mvn -Declipse.workspace=/path/to/workspace eclipse:add-maven-repo
+```
+Import checkouted in Eclipse.
+
