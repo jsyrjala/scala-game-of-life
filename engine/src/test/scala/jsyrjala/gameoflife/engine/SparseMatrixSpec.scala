@@ -22,7 +22,7 @@ object SparseMatrixSpec {
     1 x
     2 x
      */
-    new SparseMatrix(Map(1 -> Set(1), 2 -> Set(2)))
+    new SparseMatrix(Map(1 -> Set(1), 2 -> Set(1)))
   }
 
   def blinker = {
@@ -187,6 +187,13 @@ class SparseMatrixSpec extends SpecificationWithJUnit {
     }
   }
 
+  "glider1.aliveLocations" should {
+    "return " in {
+      // new SparseMatrix(Map(1 -> Set(3), 2 -> Set(1, 3), 3 -> Set(2, 3)))
+      SparseMatrixSpec.glider1.aliveLocations.toList must_== List(Location(3, 1), Location(1, 2), Location(3, 2), Location(2, 3), Location(3, 3))
+    }
+  }
+
   "glider2.generateNext" should {
     "return glider3" in {
       SparseMatrixSpec.glider2.generateNext must_== SparseMatrixSpec.glider3
@@ -215,11 +222,24 @@ class SparseMatrixSpec extends SpecificationWithJUnit {
     }
   }
 
+  "empty.aliveLocations" should {
+    "have no locations" in {
+      SparseMatrixSpec.empty.aliveLocations.size must_== 0
+    }
+  }
+
   "singleCell.generateNext" should {
     "return empty" in {
       SparseMatrixSpec.singleCell.generateNext must_== SparseMatrixSpec.empty
     }
   }
+
+  "singleCell.aliveLocations" should {
+    "return Location(1,1)" in {
+      SparseMatrixSpec.singleCell.aliveLocations.toList must_== List(Location(1, 1))
+    }
+  }
+
   "singleCell.population" should {
     "be 1" in {
       SparseMatrixSpec.singleCell.population must_== 1
@@ -237,6 +257,13 @@ class SparseMatrixSpec extends SpecificationWithJUnit {
       SparseMatrixSpec.twoCell.population must_== 2
     }
   }
+
+  "twoCell.aliveLocations" should {
+    "return Location(1,1), Location(1,2)" in {
+      SparseMatrixSpec.twoCell.aliveLocations.toList must_== List(Location(1, 1), Location(1, 2))
+    }
+  }
+
 
   "a non null string" should {
     "implictly convert to sparse matrix" in {
