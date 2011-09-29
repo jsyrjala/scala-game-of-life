@@ -13,7 +13,6 @@ import javax.swing.ImageIcon
 import jsyrjala.gameoflife.engine._
 import org.slf4j.LoggerFactory
 
-
 object Ui extends SimpleSwingApplication {
   lazy val logger = LoggerFactory.getLogger(this.getClass)
   val gliderIconName = "/glider.png"
@@ -101,19 +100,26 @@ object Ui extends SimpleSwingApplication {
       }
     }
 
+
     val runButton = new Button() {
-      action = Action("Run") {
-        engine ! Run()
-      }
       icon = loadIcon(runIconName)
     }
 
     val pauseButton = new Button() {
       action = Action("Pause") {
         engine ! Pause()
+        enabled = false
+        runButton.enabled = true
       }
       icon = loadIcon(pauseIconName)
     }
+    runButton.action = Action("Run") {
+      engine ! Run()
+      runButton.enabled = false
+      pauseButton.enabled = true
+    }
+
+
     pauseButton.enabled = false
     val stepButton = new Button() {
       action = Action("Step") {
