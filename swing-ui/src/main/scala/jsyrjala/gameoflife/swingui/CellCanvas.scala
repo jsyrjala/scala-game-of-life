@@ -1,7 +1,7 @@
 package jsyrjala.gameoflife.swingui
 
 import swing._
-import java.awt.{geom, Graphics2D, Dimension, Color}
+import java.awt.{Graphics2D, Dimension, Color}
 import jsyrjala.gameoflife.engine.{World, Location}
 
 class CellCanvas(cellSizePixels: Int, prefSize: Dimension, world: World) extends Panel {
@@ -28,17 +28,4 @@ class CellCanvas(cellSizePixels: Int, prefSize: Dimension, world: World) extends
     g.fillRect(xOffset, yOffset, cellSizePixels - 1, cellSizePixels - 1)
   }
 
-  private def dummy(g: Graphics2D) {
-    super.paintComponent(g)
-    g.setColor(new Color(100, 100, 100))
-    g.drawString("Drawing some text.", 10, size.height - 10)
-    g.setColor(Color.black)
-    val path = new geom.GeneralPath
-    path.moveTo(1, 20)
-    path.lineTo(10, 10)
-    path.lineTo(20, 20)
-    path.lineTo(size.width, size.height)
-    g.draw(path)
-
-  }
 }
