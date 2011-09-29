@@ -43,6 +43,7 @@ class GameOfLifeEngine(initialWorld: World, visualizer: Actor) extends Actor {
         logger.info("Reset to world " + world)
         currentWorld = world
         running = false
+        visualizer ! currentWorld
     }
   }
 

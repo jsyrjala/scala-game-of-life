@@ -50,7 +50,10 @@ object Ui extends SimpleSwingApplication {
   }
 
   def updateWorld(world: World, file: Option[File]) {
-    logger.debug("Updating world: ")
+    file.map(f =>
+      logger.info("Loading file {}", f.getPath)
+    )
+
     updateWorld(world)
     file match {
       case None => filename.visible = false
