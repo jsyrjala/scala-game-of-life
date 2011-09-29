@@ -24,8 +24,9 @@ object Ui extends SimpleSwingApplication {
 
   val populationCount = new Label("Population: 0")
   val generationCount = new Label("Generation: 0")
+  var world: World = new SparseMatrix(Map())
+  val canvas = new CellCanvas(10, new Dimension(200, 200), world)
   val filename = new Label("File: -")
-  var world: World = _
 
   updateWorld(new SparseMatrix(Map()), None)
   val updater = actor {
@@ -49,6 +50,7 @@ object Ui extends SimpleSwingApplication {
   }
 
   def updateWorld(world: World, file: Option[File]) {
+    logger.debug("Updating world: ")
     updateWorld(world)
     file match {
       case None => filename.visible = false
@@ -59,7 +61,7 @@ object Ui extends SimpleSwingApplication {
   def updateWorld(world: World) {
     populationCount.text = "Population: %s".format(world.population)
     generationCount.text = "Generation: %s".format(world.generation)
-    this.world = world
+    canvas.updateWorld(world)
   }
 
   def loadFile(file: File) {
@@ -70,6 +72,7 @@ object Ui extends SimpleSwingApplication {
     logger.info("Reading file " + file.getPath)
     val data: SparseMatrix = Source.fromFile(file).getLines().mkString("\n")
     updateWorld(data, Some(file))
+    engine ! Reset(data)
   }
 
   def top = new MainFrame {
@@ -82,9 +85,10 @@ object Ui extends SimpleSwingApplication {
         contents += new MenuItem(Action("Open") {
           val chooser = new FileChooser
           chooser.showOpenDialog(this) match {
-            case Cancel => println("Cancel Open file")
-            case Error => println("Error while Open file")
-            case Approve => loadFile(chooser.selectedFile); updateWorld(world, Some(chooser.selectedFile))
+            case Cancel => logger.debug("Open File operation canceled")
+            case Error => logger.error("Error while Open file")
+            case Approve => loadFile(chooser.selectedFile);
+            updateWorld(world, Some(chooser.selectedFile))
           }
         })
         contents += new Separator
@@ -123,7 +127,7 @@ object Ui extends SimpleSwingApplication {
 
     val statusPanel = new FlowPanel(populationCount, generationCount, filename)
     val buttonPanel = new FlowPanel(runButton, pauseButton, stepButton, resetButton)
-    val canvas = new CellCanvas(10, new Dimension(200, 200), world)
+
 
     val mainPanel = new BorderPanel {
       add(buttonPanel, Position.North)

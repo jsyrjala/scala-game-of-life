@@ -5,18 +5,23 @@ import java.awt.{Graphics2D, Dimension, Color}
 import jsyrjala.gameoflife.engine.{World, Location}
 
 class CellCanvas(cellSizePixels: Int, prefSize: Dimension, world: World) extends Panel {
-
+  private var currentWorld = world
   preferredSize = prefSize
   background = Color.black
 
   override def paintComponent(g: Graphics2D) {
     super.paintComponent(g)
-    g.setColor(Color.white)
-    drawCells(g, world)
+    drawCells(g, currentWorld)
+  }
+
+  def updateWorld(world: World) {
+    currentWorld = world
+    repaint();
   }
 
 
   private def drawCells(g: Graphics2D, world: World) {
+    g.setColor(Color.white)
     world.aliveLocations.foreach(loc => drawCell(g, loc))
   }
 

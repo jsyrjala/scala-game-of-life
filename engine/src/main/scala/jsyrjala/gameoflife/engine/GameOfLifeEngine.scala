@@ -33,13 +33,15 @@ class GameOfLifeEngine(initialWorld: World, visualizer: Actor) extends Actor {
         logger.info("Pause received")
         running = false
       case Step(x) =>
-        logger.info("Step " + x + " steps forward")
         running = false
         currentWorld = currentWorld.generateNext
+        logger.info("Stepped " + x + " steps forward. Generation: " +
+          currentWorld.generation + " population: " + currentWorld.population)
 
         visualizer ! currentWorld
       case Reset(world: World) =>
         logger.info("Reset to world " + world)
+        currentWorld = world
         running = false
     }
   }
